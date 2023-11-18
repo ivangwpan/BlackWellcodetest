@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [Controller::class, 'welcome'])->name('welcome');
+Route::get('/userDetail{id}', [Controller::class, 'userDetail'])->name('userDetail');
+Route::patch('/userUpdate', [Controller::class, 'userUpdate'])->name('userUpdate');
+Route::get('/exportMembers/{format}', [Controller::class, 'exportMembers'])->name('exportMembers');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

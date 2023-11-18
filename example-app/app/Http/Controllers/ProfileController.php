@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Address;
 use App\Models\AddressType;
+use App\Models\Document;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,16 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $addresses = Address::where('user_id', $user->id)->first();
+        $profileImage = Document::where('documentable_id', $user->id)->first();
+        $addressImage = Document::where('documentable_id', $user->id)->first();
         $addressTypes = AddressType::all();
 
         return view('profile.edit', [
             'user' => $user,
             'addressTypes' => $addressTypes,
             'addresses' => $addresses,
+            'profileImage' => $profileImage,
+            'addressImage' => $addressImage,
         ]);
     }
 
